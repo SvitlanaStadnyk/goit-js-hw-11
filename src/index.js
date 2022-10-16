@@ -36,8 +36,8 @@ searchForm.addEventListener('submit', async e => {
     elements: { searchQuery },
   } = e.target;
   searchQueryResult = searchQuery.value;
-  console.log('searchQueryResult:', `"${searchQueryResult}"`);
-  console.log('q:', `"${q}"`);
+  //   console.log('searchQueryResult:', `"${searchQueryResult}"`);
+  //   console.log('q:', `"${q}"`);
   if (searchQueryResult === '') {
     console.log(searchQueryResult);
     gallerySelector.innerHTML = '';
@@ -47,13 +47,12 @@ searchForm.addEventListener('submit', async e => {
     );
   }
   if (searchQueryResult !== q) {
-    console.log('CHANGED!!! NOT EMPTY QUERY');
     pageN = 1;
     pixabayAPI.page = `${pageN}`;
     gallerySelector.innerHTML = '';
     btnLoadMore.classList.remove('is-visible');
   } else {
-    console.log('page+1!!!');
+    // console.log('page+1!!!');
     pageN += 1;
     pixabayAPI.page = `${pageN}`;
     btnLoadMore.classList.remove('is-visible');
@@ -91,7 +90,7 @@ searchForm.addEventListener('submit', async e => {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-  console.log('');
+  //   console.log('');
 });
 const btnLoadMore = document.querySelector('.load-more');
 btnLoadMore.addEventListener('click', async () => {
@@ -121,14 +120,12 @@ btnLoadMore.addEventListener('click', async () => {
       btnLoadMore.classList.remove('is-visible');
     }
 
-    console.log('results', results);
+    // console.log('results', results);
   } catch (error) {
     Notify.failure(
       "We're sorry, but you've reached the end of search results."
     );
   }
-  console.log('btnLoadMore working');
-  console.log('');
 });
 
 async function fetchPhotos(searchQueryResult) {
@@ -143,17 +140,16 @@ async function fetchPhotos(searchQueryResult) {
     per_page,
   } = pixabayAPI;
   pixabayAPI.page = `${pageN}`;
-
-  console.log('page', page);
+  //   console.log('page', page);
 
   const response = await axios.get(
     `${baseUrl}?key=${key}&q=${q}&image_type=${image_type}&orientation=${orientation}&safesearch=${safesearch}&order=${order}&page=${page}&per_page=${per_page}`
   );
   const results = response.data;
-  console.log('response.data', response.data);
+  //   console.log('response.data', response.data);
 
-  console.log('response', response);
-  console.log('page', page);
+  //   console.log('response', response);
+  //   console.log('page', page);
 
   const { total, totalHits, hits } = results;
   const totalPages = Math.ceil(totalHits / per_page);
